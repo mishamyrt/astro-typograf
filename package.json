@@ -1,5 +1,5 @@
 {
-  "name": "astro-typograf-integration",
+  "name": "astro-typograf",
   "version": "1.0.1",
   "description": "",
   "main": "src/typograf.integration.js",
