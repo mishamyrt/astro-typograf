@@ -1,8 +1,9 @@
 // @ts-check
 import * as cheerio from 'cheerio'
-import { readFile, writeFile } from 'fs/promises'
 import Typograf from 'typograf'
-import { CSS_SELECTOR, DEFAULT_OPTIONS } from './typograf.constants'
+import { readFile, writeFile } from 'fs/promises'
+
+import { CSS_SELECTOR, DEFAULT_OPTIONS } from './typograf.constants.js'
 
 /**
  * Applies typography transformation
