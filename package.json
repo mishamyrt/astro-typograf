@@ -1,13 +1,13 @@
 {
   "name": "astro-typograf",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.1.0",
+  "description": "Typographer for Astro",
   "main": "src/typograf.integration.js",
   "type": "module",
   "scripts": {
     "lint": "eslint 'src/**/*.js'"
   },
-  "keywords": [],
+  "keywords": ["astro", "markdown", "typography"],
   "author": "",
   "license": "ISC",
   "dependencies": {
