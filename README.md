@@ -24,3 +24,19 @@ export default defineConfig({
 })
 ```
 
+Additional options:
+
+```js
+// astro.config.mjs
+import { defineConfig } from 'astro/config'
+import typograf from 'astro-typograf'
+
+export default defineConfig({
+  integrations: [
+    typograf(
+        'p, h1, h2, h3', // CSS selectors to apply Typograf
+        {locale: ['ru', 'en-US']} // Typograf options
+    )
+  ],
+})
+```

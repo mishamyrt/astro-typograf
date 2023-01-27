@@ -10,10 +10,10 @@ import { CSS_SELECTOR, DEFAULT_OPTIONS } from './typograf.constants.js'
  * @param {string} path - HTML file location
  * @param {typograf.Typograf} tp - Typograf instance
  */
-async function fixHtmlTypography (path, tp) {
+async function fixHtmlTypography (path, tp, selectors) {
   const content = await readFile(path)
   const $ = cheerio.load(content)
-  $(CSS_SELECTOR).each((i, node) => {
+  $(selectors).each((i, node) => {
     const el = $(node)
     const html = el.html()
     if (!html) {
@@ -52,10 +52,11 @@ function createPlugin (tp) {
 
 /**
  * Typograf Astro integration constructor
+ * @param {string} selectors - String of CSS selectors to apply Typograf
  * @param {typograf.Options} options - Typograf options
  * @returns {import("astro").AstroIntegration}
  */
-export default function (options = DEFAULT_OPTIONS) {
+export default function (selectors = CSS_SELECTOR, options = DEFAULT_OPTIONS) {
   const tp = new Typograf(options)
   tp.disableRule('common/space/trimRight')
   return {
@@ -64,7 +65,7 @@ export default function (options = DEFAULT_OPTIONS) {
       'astro:build:done': async ({ routes }) => {
         await Promise.all(
           extractPaths(routes)
-            .map(path => fixHtmlTypography(path, tp))
+            .map(path => fixHtmlTypography(path, tp, selectors))
         )
       },
       'astro:config:setup': ({ updateConfig }) => {
