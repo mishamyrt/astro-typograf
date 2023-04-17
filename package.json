@@ -1,6 +1,6 @@
 {
   "name": "astro-typograf",
-  "version": "1.2.0",
+  "version": "2.0.0-rc.1",
   "description": "Typographer for Astro",
   "main": "src/typograf.integration.js",
   "type": "module",
@@ -12,10 +12,10 @@
   "license": "ISC",
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
-    "typograf": "^6.14.1"
+    "typograf": "^7.0.0"
   },
   "peerDependencies": {
-    "astro": "^1.0.0-rc.3"
+    "astro": "^2.3.0"
   },
   "devDependencies": {
     "eslint": "^8.20.0",
