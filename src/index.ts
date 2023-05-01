@@ -10,7 +10,6 @@ export default function createIntegration (
 ): AstroIntegration {
   const config: IntegrationOptions = merge(defaultOptions, options)
   const tp = new Typograf(config.typografOptions)
-  tp.disableRule('common/space/trimRight')
   return {
     name: 'typograf',
     hooks: {
@@ -30,13 +29,3 @@ export default function createIntegration (
     }
   }
 }
-
-// /**
-//  * Typograf Astro integration constructor
-//  * @param {string} selectors - String of CSS selectors to apply Typograf
-//  * @param {typograf.Options} options - Typograf options
-//  * @returns {import("astro").AstroIntegration}
-//  */
-// export default function (selectors = CSS_SELECTOR, options = DEFAULT_OPTIONS) {
-
-// }
