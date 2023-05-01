@@ -5,15 +5,23 @@
   "type": "module",
   "scripts": {
     "lint": "eslint 'src/**/*.ts'",
-    "build": "parcel build"
+    "build": "parcel build",
+    "test": "pnpm astro --root ./test/ build && cd test && node check.js"
   },
   "source": "src/index.ts",
   "main": "lib/index.esm.js",
   "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "package.json",
+    "LICENSE",
+    "README.md"
+  ],
   "keywords": [
     "astro",
     "astro-integration",
     "markdown",
+    "withastro",
     "typography"
   ],
   "author": {
