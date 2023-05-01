@@ -4,6 +4,8 @@ import { type AstroIntegration } from 'astro'
 import { type IntegrationOptions, defaultOptions } from './options'
 import { extractPaths } from './path'
 import { createPlugin, fixHtmlTypography } from './typograf'
+import { bgBlue, black } from 'kleur/colors'
+import { reportResults } from './report'
 
 export default function createIntegration (
   options: Partial<IntegrationOptions> = {}
@@ -14,10 +16,13 @@ export default function createIntegration (
     name: 'typograf',
     hooks: {
       'astro:build:done': async ({ routes }) => {
+        console.log(bgBlue(black(' improving typography ')))
+        const paths = extractPaths(routes)
+        const start = performance.now()
         await Promise.all(
-          extractPaths(routes)
-            .map(path => fixHtmlTypography(path, tp, config.selector))
+          paths.map(path => fixHtmlTypography(path, tp, config.selector))
         )
+        reportResults(paths.length, start, performance.now())
       },
       'astro:config:setup': ({ updateConfig }) => {
         updateConfig({
