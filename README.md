@@ -4,6 +4,14 @@ A small library that adds typography fixes using the [typograf](https://www.npmj
 
 ## Setup
 
+### Using Astro CLI
+
+```sh
+npx astro add astro-typograf
+```
+
+### Manual
+
 Before you start using it, install the library.
 
 ```sh
@@ -34,8 +42,10 @@ import typograf from 'astro-typograf'
 export default defineConfig({
   integrations: [
     typograf(
-        'p, h1, h2, h3', // CSS selectors to apply Typograf
-        {locale: ['ru', 'en-US']} // Typograf options
+      selector: 'p, h1, h2, h3', // CSS selectors to apply Typograf
+      typografOptions: { // Typograf options
+        locale: ['ru', 'en-US']
+      }
     )
   ],
 })
