@@ -1,5 +1,8 @@
 import { type TypografPrefs } from 'typograf/dist/main'
 
+// Map of rule -> setting name -> value to pass to Typograf#setSetting
+export type TypografSettings = Record<string, Record<string, unknown>>
+
 export interface IntegrationOptions {
   /**
    * Typographer configuration
@@ -7,6 +10,15 @@ export interface IntegrationOptions {
    * Available properties here: https://github.com/typograf/typograf/blob/4f5d3704b13a0639e6a2b936e73f0edfd4b79bb7/src/main.ts#L22
    */
   typografOptions: TypografPrefs
+  /**
+   * Rule-specific settings to tweak Typograf behavior.
+   *
+   * Example:
+   * {
+   *   'common/nbsp/afterShortWord': { lengthShortWord: 3 }
+   * }
+   */
+  typografSettings: TypografSettings
   /**
    * Selector by which nodes will be queried to improve typography.
    *
@@ -22,5 +34,6 @@ export const defaultOptions: IntegrationOptions = {
       'common/space/trimRight'
     ]
   },
+  typografSettings: {},
   selector: 'p, h1, h2, h3'
 }

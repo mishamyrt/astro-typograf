@@ -45,8 +45,14 @@ export default defineConfig({
   integrations: [
     typograf({
       selector: 'p, h1, h2, h3', // CSS selectors to apply Typograf
-      typografOptions: { // Typograf options
-        locale: ['ru', 'en-US']
+      typografOptions: { // Typograf constructor options
+        locale: ['ru', 'en-US'],
+        htmlEntity: { type: 'name' }
+      },
+      // Rule-specific settings passed to Typograf#setSetting
+      // Equivalent to: tp.setSetting('common/nbsp/afterShortWord', 'lengthShortWord', 3)
+      typografSettings: {
+        'common/nbsp/afterShortWord': { lengthShortWord: 3 }
       }
     })
   ],

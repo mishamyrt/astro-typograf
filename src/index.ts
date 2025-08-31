@@ -14,6 +14,14 @@ export default function createIntegration (
 ): AstroIntegration {
   const config: IntegrationOptions = merge(defaultOptions, options)
   const tp = new Typograf(config.typografOptions)
+  // Apply rule-specific settings supplied via config
+  for (const rule of Object.keys(config.typografSettings || {})) {
+    const settings = (config.typografSettings as Record<string, Record<string, unknown>>)[rule]
+    if (!settings) continue
+    for (const name of Object.keys(settings as Record<string, unknown>)) {
+      tp.setSetting(rule, name, settings[name])
+    }
+  }
   return {
     name: 'typograf',
     hooks: {
