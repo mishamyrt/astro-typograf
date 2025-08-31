@@ -26,7 +26,12 @@ export async function fixHtmlTypography (
   selector: string
 ): Promise<void> {
   const content = await readFile(path)
-  const $ = load(content)
+  const $ = load(content, {
+    xml: {
+      decodeEntities: false,
+    },
+  })
+
   $(selector).each((i, node) => {
     const el = $(node)
     const html = el.html()
