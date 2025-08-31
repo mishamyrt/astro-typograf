@@ -1,6 +1,6 @@
 {
   "name": "astro-typograf",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "Text typographer for statically rendered files in Astro",
   "type": "module",
   "scripts": {

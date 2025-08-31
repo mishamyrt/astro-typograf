@@ -28,6 +28,7 @@ export async function fixHtmlTypography (
   const content = await readFile(path)
   const $ = load(content, {
     xml: {
+      xmlMode: false,
       decodeEntities: false,
     },
   })
