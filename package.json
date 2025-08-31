@@ -1,6 +1,6 @@
 {
   "name": "astro-typograf",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Text typographer for statically rendered files in Astro",
   "type": "module",
   "scripts": {
@@ -41,7 +41,7 @@
     "@total-typescript/ts-reset": "^0.4.2",
     "@types/node": "^18.16.3",
     "@typescript-eslint/eslint-plugin": "^5.43.0",
-    "astro": "^2.3.3",
+    "astro": "^5.13.5",
     "eslint": "^8.39.0",
     "eslint-config-standard": "^17.0.0",
     "eslint-config-standard-with-typescript": "^34.0.1",

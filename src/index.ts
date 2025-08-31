@@ -5,6 +5,9 @@ import { type IntegrationOptions, defaultOptions } from './options'
 import { createPlugin, fixHtmlTypography } from './typograf'
 import { bgBlue, black } from 'kleur/colors'
 import { reportResults } from './report'
+import { fileURLToPath } from 'url'
+import { readdir } from 'fs/promises'
+import { join } from 'path'
 
 export default function createIntegration (
   options: Partial<IntegrationOptions> = {}
@@ -14,15 +17,28 @@ export default function createIntegration (
   return {
     name: 'typograf',
     hooks: {
-      'astro:build:done': async ({ pages, dir }) => {
+      'astro:build:done': async ({ dir }) => {
         console.log(bgBlue(black(' improving typography ')))
-        const paths = []
-        for (const page of pages) {
-          paths.push(dir.pathname + page.pathname + 'index.html')
+
+        const root = fileURLToPath(dir)
+        const paths: string[] = []
+
+        // Recursively collect all built HTML files to avoid relying on
+        // potentially changed `pages` shape across Astro versions.
+        const stack: string[] = [root]
+        while (stack.length > 0) {
+          const current = stack.pop()!
+          const entries = await readdir(current, { withFileTypes: true })
+          for (const entry of entries) {
+            const full = join(current, entry.name)
+            if (entry.isDirectory()) stack.push(full)
+            else if (entry.isFile() && full.endsWith('.html')) paths.push(full)
+          }
         }
+
         const start = performance.now()
         await Promise.all(
-          paths.map(path => fixHtmlTypography(path, tp, config.selector))
+          paths.map((path) => fixHtmlTypography(path, tp, config.selector))
         )
         reportResults(paths.length, start, performance.now())
       },
