@@ -1,7 +1,7 @@
 import Typograf from 'typograf'
 import merge from 'deepmerge'
 import { type AstroIntegration } from 'astro'
-import { type IntegrationOptions, defaultOptions } from './options'
+import { type IntegrationOptions, type TypografSettings, defaultOptions } from './options'
 import { createPlugin, fixHtmlTypography } from './typograf'
 import { bgBlue, black } from 'kleur/colors'
 import { reportResults } from './report'
@@ -16,9 +16,9 @@ export default function createIntegration (
   const tp = new Typograf(config.typografOptions)
   // Apply rule-specific settings supplied via config
   for (const rule of Object.keys(config.typografSettings || {})) {
-    const settings = (config.typografSettings as Record<string, Record<string, unknown>>)[rule]
+    const settings = (config.typografSettings as TypografSettings)[rule]
     if (!settings) continue
-    for (const name of Object.keys(settings as Record<string, unknown>)) {
+    for (const name of Object.keys(settings)) {
       tp.setSetting(rule, name, settings[name])
     }
   }
