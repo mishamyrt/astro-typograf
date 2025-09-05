@@ -39,8 +39,11 @@ export default function createIntegration (
           const entries = await readdir(current, { withFileTypes: true })
           for (const entry of entries) {
             const full = join(current, entry.name)
-            if (entry.isDirectory()) stack.push(full)
-            else if (entry.isFile() && full.endsWith('.html')) paths.push(full)
+            if (entry.isDirectory()) {
+              stack.push(full)
+            } else if (entry.isFile() && full.endsWith('.html')) {
+              paths.push(full)
+            }
           }
         }
 
