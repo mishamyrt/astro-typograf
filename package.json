@@ -37,20 +37,19 @@
     "typograf": "^7.6.0"
   },
   "devDependencies": {
-    "@total-typescript/ts-reset": "^0.6.1",
+    "@total-typescript/ts-reset": "0.6.1",
     "@types/node": "25.5.2",
     "astro": "6.1.4",
-    "oxfmt": "^0.44.0",
-    "oxlint": "^1.59.0",
-    "oxlint-tsgolint": "^0.20.0",
+    "oxfmt": "0.44.0",
+    "oxlint": "1.59.0",
+    "oxlint-tsgolint": "0.20.0",
     "rolldown": "1.0.0-rc.13",
     "rolldown-plugin-dts": "^0.23.2",
-    "typescript": "5.9.3",
-    "unified": "11.0.5",
+    "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0"
   },
   "peerDependencies": {
-    "unified": "11.0.5",
-    "unist-util-visit": "^4.1.2"
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0"
   }
 }
