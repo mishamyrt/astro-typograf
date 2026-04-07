@@ -1,34 +1,35 @@
 {
   "name": "astro-typograf",
-  "version": "3.2.1",
+  "version": "3.3.0",
   "description": "Text typographer for statically rendered files in Astro",
-  "type": "module",
-  "scripts": {
-    "lint": "eslint 'src/**/*.ts'",
-    "build": "parcel build",
-    "test": "pnpm astro --root ./test/ build && cd test && node check.js"
+  "keywords": [
+    "astro",
+    "astro-integration",
+    "markdown",
+    "typography",
+    "withastro"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Mikhael Khrustik",
+    "url": "https://myrt.co"
   },
-  "source": "src/index.ts",
-  "main": "lib/index.esm.js",
-  "types": "lib/index.d.ts",
   "files": [
     "lib",
     "package.json",
     "LICENSE",
     "README.md"
   ],
-  "keywords": [
-    "astro",
-    "astro-integration",
-    "markdown",
-    "withastro",
-    "typography"
-  ],
-  "author": {
-    "name": "Mikhael Khrustik",
-    "url": "https://myrt.co"
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "fmt": "oxfmt .",
+    "fmt:check": "oxfmt --check .",
+    "lint": "oxlint src test",
+    "build": "rolldown -c rolldown.config.mjs",
+    "test": "astro --root ./test/ build && cd test && node check.js"
   },
-  "license": "MIT",
   "dependencies": {
     "cheerio": "^1.2.0",
     "deepmerge": "^4.3.1",
@@ -36,20 +37,15 @@
     "typograf": "^7.6.0"
   },
   "devDependencies": {
-    "@parcel/packager-ts": "^2.16.4",
-    "@parcel/transformer-typescript-types": "^2.16.4",
     "@total-typescript/ts-reset": "^0.6.1",
     "@types/node": "25.5.2",
-    "@typescript-eslint/eslint-plugin": "8.58.0",
     "astro": "6.1.4",
-    "eslint": "10.2.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-config-standard-with-typescript": "43.0.1",
-    "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-n": "17.24.0",
-    "eslint-plugin-promise": "7.2.1",
-    "parcel": "^2.16.4",
-    "typescript": "6.0.2",
+    "oxfmt": "^0.44.0",
+    "oxlint": "^1.59.0",
+    "oxlint-tsgolint": "^0.20.0",
+    "rolldown": "1.0.0-rc.13",
+    "rolldown-plugin-dts": "^0.23.2",
+    "typescript": "5.9.3",
     "unified": "11.0.5",
     "unist-util-visit": "^5.1.0"
   },
