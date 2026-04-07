@@ -1,8 +1,8 @@
-import type Typograf from 'typograf'
-import { type Plugin } from 'unified'
-import { readFile, writeFile } from 'node:fs/promises'
-import { load } from 'cheerio'
-import { visit } from 'unist-util-visit'
+import type Typograf from "typograf"
+import { type Plugin } from "unified"
+import { readFile, writeFile } from "node:fs/promises"
+import { load } from "cheerio"
+import { visit } from "unist-util-visit"
 
 /**
  * Creates typographer remark plugin.
@@ -10,8 +10,8 @@ import { visit } from 'unist-util-visit'
 export function createPlugin(tp: Typograf): Plugin {
   return function () {
     return function (tree: any) {
-      visit(tree, 'text', (node: { value: unknown }) => {
-        if (typeof node.value !== 'string' && typeof node.value !== 'number') {
+      visit(tree, "text", (node: { value: unknown }) => {
+        if (typeof node.value !== "string" && typeof node.value !== "number") {
           return
         }
         node.value = tp.execute(node.value)

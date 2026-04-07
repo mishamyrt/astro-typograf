@@ -1,4 +1,4 @@
-import { dim } from 'kleur/colors'
+import { dim } from "kleur/colors"
 
 export function formatTimeStat(timeStart: number, timeEnd: number): string {
   const buildTime = timeEnd - timeStart
@@ -12,8 +12,8 @@ export function reportResults(
   timeStart: number,
   timeEnd: number,
 ): void {
-  const filePlural = count === 1 ? 'file' : 'files'
+  const filePlural = count === 1 ? "file" : "files"
   const message = `Improved ${count} ${filePlural} in ${formatTimeStat(timeStart, timeEnd)}.`
   process.stdout.write(dim(message))
-  process.stdout.write('\n\n')
+  process.stdout.write("\n\n")
 }

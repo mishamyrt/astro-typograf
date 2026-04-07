@@ -1,13 +1,13 @@
-import Typograf from 'typograf'
-import merge from 'deepmerge'
-import type { AstroIntegration } from 'astro'
-import { type IntegrationOptions, defaultOptions } from './options'
-import { createPlugin, fixHtmlTypography } from './typograf'
-import { bgBlue, black } from 'kleur/colors'
-import { reportResults } from './report'
-import { fileURLToPath } from 'node:url'
-import { readdir } from 'node:fs/promises'
-import { join } from 'node:path'
+import Typograf from "typograf"
+import merge from "deepmerge"
+import type { AstroIntegration } from "astro"
+import { type IntegrationOptions, defaultOptions } from "./options"
+import { createPlugin, fixHtmlTypography } from "./typograf"
+import { bgBlue, black } from "kleur/colors"
+import { reportResults } from "./report"
+import { fileURLToPath } from "node:url"
+import { readdir } from "node:fs/promises"
+import { join } from "node:path"
 
 export default function createIntegration(
   options: Partial<IntegrationOptions> = {},
@@ -25,10 +25,10 @@ export default function createIntegration(
     }
   }
   return {
-    name: 'typograf',
+    name: "typograf",
     hooks: {
-      'astro:build:done': async ({ dir }) => {
-        console.log(bgBlue(black(' improving typography ')))
+      "astro:build:done": async ({ dir }) => {
+        console.log(bgBlue(black(" improving typography ")))
 
         const root = fileURLToPath(dir)
         const paths: string[] = []
@@ -44,7 +44,7 @@ export default function createIntegration(
             const full = join(current, entry.name)
             if (entry.isDirectory()) {
               stack.push(full)
-            } else if (entry.isFile() && full.endsWith('.html')) {
+            } else if (entry.isFile() && full.endsWith(".html")) {
               paths.push(full)
             }
           }
@@ -56,7 +56,7 @@ export default function createIntegration(
         )
         reportResults(paths.length, start, performance.now())
       },
-      'astro:config:setup': ({ updateConfig }) => {
+      "astro:config:setup": ({ updateConfig }) => {
         updateConfig({
           markdown: {
             remarkPlugins: [createPlugin(tp)],
