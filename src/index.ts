@@ -1,7 +1,7 @@
 import Typograf from 'typograf'
 import merge from 'deepmerge'
-import { type AstroIntegration } from 'astro'
-import { type IntegrationOptions, type TypografSettings, defaultOptions } from './options'
+import type { AstroIntegration } from 'astro'
+import { type IntegrationOptions, defaultOptions } from './options'
 import { createPlugin, fixHtmlTypography } from './typograf'
 import { bgBlue, black } from 'kleur/colors'
 import { reportResults } from './report'
@@ -9,15 +9,17 @@ import { fileURLToPath } from 'url'
 import { readdir } from 'fs/promises'
 import { join } from 'path'
 
-export default function createIntegration (
-  options: Partial<IntegrationOptions> = {}
+export default function createIntegration(
+  options: Partial<IntegrationOptions> = {},
 ): AstroIntegration {
   const config: IntegrationOptions = merge(defaultOptions, options)
   const tp = new Typograf(config.typografOptions)
   // Apply rule-specific settings supplied via config
-  for (const rule of Object.keys(config.typografSettings || {})) {
-    const settings = (config.typografSettings as TypografSettings)[rule]
-    if (!settings) continue
+  for (const rule of Object.keys(config.typografSettings)) {
+    const settings = config.typografSettings[rule]
+    if (!settings) {
+      continue
+    }
     for (const name of Object.keys(settings)) {
       tp.setSetting(rule, name, settings[name])
     }
@@ -35,7 +37,8 @@ export default function createIntegration (
         // potentially changed `pages` shape across Astro versions.
         const stack: string[] = [root]
         while (stack.length > 0) {
-          const current = stack.pop()!
+          const current = stack.pop()
+          if (current === undefined) continue
           const entries = await readdir(current, { withFileTypes: true })
           for (const entry of entries) {
             const full = join(current, entry.name)
@@ -49,17 +52,17 @@ export default function createIntegration (
 
         const start = performance.now()
         await Promise.all(
-          paths.map((path) => fixHtmlTypography(path, tp, config.selector))
+          paths.map((path) => fixHtmlTypography(path, tp, config.selector)),
         )
         reportResults(paths.length, start, performance.now())
       },
       'astro:config:setup': ({ updateConfig }) => {
         updateConfig({
           markdown: {
-            remarkPlugins: [createPlugin(tp)]
-          }
+            remarkPlugins: [createPlugin(tp)],
+          },
         })
-      }
-    }
+      },
+    },
   }
 }

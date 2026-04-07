@@ -1,4 +1,4 @@
-import { type TypografPrefs } from 'typograf/dist/main'
+import type { TypografPrefs } from 'typograf'
 
 // Map of rule -> setting name -> value to pass to Typograf#setSetting
 export type TypografSettings = Record<string, Record<string, unknown>>
@@ -30,10 +30,8 @@ export interface IntegrationOptions {
 export const defaultOptions: IntegrationOptions = {
   typografOptions: {
     locale: ['ru', 'en-US'],
-    disableRule: [
-      'common/space/trimRight'
-    ]
+    disableRule: ['common/space/trimRight'],
   },
   typografSettings: {},
-  selector: 'p, h1, h2, h3'
+  selector: 'p, h1, h2, h3',
 }

@@ -7,10 +7,13 @@ import { visit } from 'unist-util-visit'
 /**
  * Creates typographer remark plugin.
  */
-export function createPlugin (tp: Typograf): Plugin {
+export function createPlugin(tp: Typograf): Plugin {
   return function () {
     return function (tree: any) {
-      visit(tree, 'text', (node) => {
+      visit(tree, 'text', (node: { value: unknown }) => {
+        if (typeof node.value !== 'string' && typeof node.value !== 'number') {
+          return
+        }
         node.value = tp.execute(node.value)
       })
     }
@@ -20,10 +23,10 @@ export function createPlugin (tp: Typograf): Plugin {
 /**
  * Improves the typography in the file on the specified path.
  */
-export async function fixHtmlTypography (
+export async function fixHtmlTypography(
   path: string,
   tp: Typograf,
-  selector: string
+  selector: string,
 ): Promise<void> {
   const content = await readFile(path)
   const $ = load(content, {
@@ -37,9 +40,7 @@ export async function fixHtmlTypography (
     const el = $(node)
     const html = el.html()
     if (!html) return
-    el.html(
-      tp.execute(html)
-    )
+    el.html(tp.execute(html))
   })
   await writeFile(path, $.html())
 }
