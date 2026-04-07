@@ -5,9 +5,9 @@ import { type IntegrationOptions, defaultOptions } from './options'
 import { createPlugin, fixHtmlTypography } from './typograf'
 import { bgBlue, black } from 'kleur/colors'
 import { reportResults } from './report'
-import { fileURLToPath } from 'url'
-import { readdir } from 'fs/promises'
-import { join } from 'path'
+import { fileURLToPath } from 'node:url'
+import { readdir } from 'node:fs/promises'
+import { join } from 'node:path'
 
 export default function createIntegration(
   options: Partial<IntegrationOptions> = {},

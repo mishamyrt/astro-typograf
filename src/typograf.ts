@@ -1,6 +1,6 @@
 import type Typograf from 'typograf'
 import { type Plugin } from 'unified'
-import { readFile, writeFile } from 'fs/promises'
+import { readFile, writeFile } from 'node:fs/promises'
 import { load } from 'cheerio'
 import { visit } from 'unist-util-visit'
 
