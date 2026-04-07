@@ -2,7 +2,7 @@
 
 A small library that adds typography fixes using the [typograf](https://www.npmjs.com/package/typograf) library to your [Astro](https://www.npmjs.com/package/astro) project.
 
-Works with Astro v5 (tested on 5.13.5).
+Works with Astro v6 (tested on 6.1.4).
 
 ## Setup
 
