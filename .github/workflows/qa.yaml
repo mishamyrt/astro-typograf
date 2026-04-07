@@ -6,19 +6,31 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
+      - name: Checkout
+        uses: actions/checkout@v3
 
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v2
-      with:
-        version: 10
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
 
-    - name: Install dependencies
-      run: pnpm install --frozen-lockfile
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10
 
-    - name: Build check
-      run: pnpm build
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
 
-    - name: Astro build check
-      run: pnpm test
+      - name: Format check
+        run: pnpm fmt:check
+
+      - name: Lint check
+        run: pnpm lint
+
+      - name: Build check
+        run: pnpm build
+
+      - name: Astro build check
+        run: pnpm test

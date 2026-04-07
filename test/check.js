@@ -4,23 +4,15 @@ import { bgGreen, bgRed, black } from 'kleur/colors'
 
 const langs = ['ru', 'en']
 
-function reportError (lang) {
-  console.error(
-    bgRed(
-      black(`Non breaking space not found in "${lang}"`)
-    )
-  )
+function reportError(lang) {
+  console.error(bgRed(black(`Non breaking space not found in "${lang}"`)))
 }
 
-function reportSuccess () {
-  console.log(
-    bgGreen(
-      black('The integration worked as intended')
-    )
-  )
+function reportSuccess() {
+  console.log(bgGreen(black('The integration worked as intended')))
 }
 
-async function checkResults () {
+async function checkResults() {
   console.log('')
   console.log('Checking results')
   const html = await readFile('./dist/index.html')
