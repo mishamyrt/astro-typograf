@@ -31,10 +31,11 @@ export default function createIntegration(
         console.log(bgBlue(black(" improving typography ")))
 
         const root = fileURLToPath(dir)
-        const paths: string[] = []
+        let count = 0
+        const start = performance.now()
 
-        // Recursively collect all built HTML files to avoid relying on
-        // potentially changed `pages` shape across Astro versions.
+        // Traverse built files without retaining all pages or processing them
+        // concurrently, which keeps memory usage bounded for large sites.
         const stack: string[] = [root]
         while (stack.length > 0) {
           const current = stack.pop()
@@ -45,16 +46,13 @@ export default function createIntegration(
             if (entry.isDirectory()) {
               stack.push(full)
             } else if (entry.isFile() && full.endsWith(".html")) {
-              paths.push(full)
+              await fixHtmlTypography(full, tp, config.selector)
+              count += 1
             }
           }
         }
 
-        const start = performance.now()
-        await Promise.all(
-          paths.map((path) => fixHtmlTypography(path, tp, config.selector)),
-        )
-        reportResults(paths.length, start, performance.now())
+        reportResults(count, start, performance.now())
       },
       "astro:config:setup": ({ updateConfig }) => {
         updateConfig({
