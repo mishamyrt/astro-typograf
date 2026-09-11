@@ -34,19 +34,19 @@
     "cheerio": "^1.2.0",
     "deepmerge": "^4.3.1",
     "kleur": "^4.1.5",
-    "typograf": "^7.6.0"
+    "typograf": "^7.8.0"
   },
   "devDependencies": {
     "@total-typescript/ts-reset": "0.6.1",
     "@types/node": "25.5.2",
-    "astro": "6.1.4",
-    "oxfmt": "0.44.0",
-    "oxlint": "1.59.0",
-    "oxlint-tsgolint": "0.20.0",
-    "rolldown": "1.0.0-rc.13",
-    "rolldown-plugin-dts": "^0.23.2",
-    "unified": "^11.0.5",
-    "unist-util-visit": "^5.1.0"
+    "astro": "7.3.2",
+    "oxfmt": "0.67.0",
+    "oxlint": "1.82.0",
+    "oxlint-tsgolint": "7.0.2001",
+    "rolldown": "1.2.8",
+    "rolldown-plugin-dts": "0.28.5",
+    "unified": "11.0.5",
+    "unist-util-visit": "5.1.0"
   },
   "peerDependencies": {
     "unified": "^11.0.5",
