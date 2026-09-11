@@ -1,8 +1,8 @@
 import Typograf from "typograf"
-import merge from "deepmerge"
 import type { AstroIntegration } from "astro"
-import { type IntegrationOptions, defaultOptions } from "./options"
-import { createPlugin, fixHtmlTypography } from "./typograf"
+import { isSatteriProcessor } from "@astrojs/markdown-satteri"
+import { type IntegrationOptions, resolveOptions } from "./options"
+import { createSatteriPlugin, fixHtmlTypography } from "./typograf"
 import { bgBlue, black } from "kleur/colors"
 import { reportResults } from "./report"
 import { fileURLToPath } from "node:url"
@@ -12,7 +12,7 @@ import { join } from "node:path"
 export default function createIntegration(
   options: Partial<IntegrationOptions> = {},
 ): AstroIntegration {
-  const config: IntegrationOptions = merge(defaultOptions, options)
+  const config: IntegrationOptions = resolveOptions(options)
   const tp = new Typograf(config.typografOptions)
   // Apply rule-specific settings supplied via config
   for (const rule of Object.keys(config.typografSettings)) {
@@ -54,12 +54,14 @@ export default function createIntegration(
 
         reportResults(count, start, performance.now())
       },
-      "astro:config:setup": ({ updateConfig }) => {
-        updateConfig({
-          markdown: {
-            remarkPlugins: [createPlugin(tp)],
-          },
-        })
+      "astro:config:done": ({ config }) => {
+        const processor = config.markdown.processor
+        if (!isSatteriProcessor(processor)) {
+          throw new Error(
+            "astro-typograf 4 requires the Sätteri Markdown processor. For remark/unified, use astro-typograf@3.",
+          )
+        }
+        processor.options.mdastPlugins.push(createSatteriPlugin(tp))
       },
     },
   }

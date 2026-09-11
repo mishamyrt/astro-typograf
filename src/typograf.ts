@@ -1,22 +1,17 @@
 import type Typograf from "typograf"
-import { type Plugin } from "unified"
+import type { MdastPluginDefinition } from "satteri"
 import { readFile, writeFile } from "node:fs/promises"
 import { load } from "cheerio"
-import { visit } from "unist-util-visit"
 
 /**
- * Creates typographer remark plugin.
+ * Creates a Sätteri plugin that improves Markdown text typography.
  */
-export function createPlugin(tp: Typograf): Plugin {
-  return function () {
-    return function (tree: any) {
-      visit(tree, "text", (node: { value: unknown }) => {
-        if (typeof node.value !== "string" && typeof node.value !== "number") {
-          return
-        }
-        node.value = tp.execute(node.value)
-      })
-    }
+export function createSatteriPlugin(tp: Typograf): MdastPluginDefinition {
+  return {
+    name: "typograf",
+    text(node, ctx) {
+      ctx.setProperty(node, "value", tp.execute(node.value))
+    },
   }
 }
 

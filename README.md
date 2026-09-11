@@ -2,7 +2,7 @@
 
 A small library that adds typography fixes using the [typograf](https://www.npmjs.com/package/typograf) library to your [Astro](https://www.npmjs.com/package/astro) project.
 
-Works with Astro v6 (tested on 6.1.4).
+Versions before **4.0.0** support remark/unified. Starting with **4.0.0**, this integration supports **Sätteri** and no longer supports remark/unified.
 
 ## Setup
 
@@ -60,7 +60,16 @@ export default defineConfig({
 
 ## Compatibility
 
-- Astro: v5.x (tested on 5.13.5)
-- Node: 18+
+- Astro: v7.x (tested on 7.3.2)
+- Markdown processor: Sätteri (the default in Astro v7)
+- Node: 22.12.0+
 
-If you need support for older Astro versions, use a 2.x release of this package.
+The integration adds a Sätteri text plugin to your configured processor, preserving existing MDAST/HAST plugins and feature options. It also applies typography fixes to statically generated HTML using the configured CSS selector.
+
+If your project uses Astro v5/v6 or remark/unified, stay on the 3.x release:
+
+```sh
+npm install astro-typograf@3
+```
+
+For Astro versions older than v5, use a 2.x release of this package.

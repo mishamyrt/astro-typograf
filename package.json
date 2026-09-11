@@ -1,6 +1,6 @@
 {
   "name": "astro-typograf",
-  "version": "3.4.0",
+  "version": "4.0.0",
   "description": "Text typographer for statically rendered files in Astro",
   "keywords": [
     "astro",
@@ -28,15 +28,15 @@
     "fmt:check": "oxfmt --check .",
     "lint": "oxlint src test",
     "build": "rolldown -c rolldown.config.mjs",
-    "test": "astro --root ./test/ build && cd test && node check.js"
+    "test": "node --test test/integration.test.js && astro --root ./test/ build && cd test && node check.js"
   },
   "dependencies": {
     "cheerio": "^1.2.0",
-    "deepmerge": "^4.3.1",
     "kleur": "^4.1.5",
     "typograf": "^7.8.0"
   },
   "devDependencies": {
+    "@astrojs/markdown-satteri": "^0.4.1",
     "@total-typescript/ts-reset": "0.6.1",
     "@types/node": "25.5.2",
     "astro": "7.3.2",
@@ -45,11 +45,9 @@
     "oxlint-tsgolint": "7.0.2001",
     "rolldown": "1.2.8",
     "rolldown-plugin-dts": "0.28.5",
-    "unified": "11.0.5",
-    "unist-util-visit": "5.1.0"
+    "satteri": "0.10.5"
   },
   "peerDependencies": {
-    "unified": "^11.0.5",
-    "unist-util-visit": "^5.1.0"
+    "astro": "^7.0.0"
   }
 }

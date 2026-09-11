@@ -9,10 +9,7 @@ export default defineConfig({
     "typograf",
     "deepmerge",
     "astro",
-    "unified",
-    "unist-util-is",
-    "unist-util-visit",
-    "unist-util-visit-parents",
+    "@astrojs/markdown-satteri",
     "cheerio",
   ],
   output: {

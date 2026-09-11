@@ -35,3 +35,22 @@ export const defaultOptions: IntegrationOptions = {
   typografSettings: {},
   selector: "p, h1, h2, h3",
 }
+
+/**
+ * Merge options object with defaults.
+ */
+export function resolveOptions(
+  options: Partial<IntegrationOptions>,
+): IntegrationOptions {
+  return {
+    typografOptions: {
+      ...defaultOptions.typografOptions,
+      ...options.typografOptions,
+    },
+    typografSettings: {
+      ...defaultOptions.typografSettings,
+      ...options.typografSettings,
+    },
+    selector: options.selector ?? defaultOptions.selector,
+  }
+}

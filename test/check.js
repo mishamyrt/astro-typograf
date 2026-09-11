@@ -1,6 +1,7 @@
 import { readFile } from "fs/promises"
 import { load } from "cheerio"
 import { bgGreen, bgRed, black } from "kleur/colors"
+import assert from "node:assert/strict"
 
 const langs = ["ru", "en"]
 
@@ -24,6 +25,14 @@ async function checkResults() {
       process.exit(1)
     }
   }
+  const markdown = load(await readFile("./dist/markdown/index.html"))
+  // List items are outside the HTML selector, so only the Markdown plugin can fix them.
+  assert.match(markdown("li").eq(0).text(), /на\u00a0русском/)
+  assert.match(markdown("li").eq(1).text(), /in\u00a0English/)
+  assert.equal(markdown("strong").text(), "выделением")
+  assert.equal(markdown("a").attr("href"), "https://example.com")
+  assert.equal(markdown("li code").text(), "Текст на русском")
+  assert.equal(markdown("pre code").text().trim(), "Текст на русском")
   reportSuccess()
 }
 
