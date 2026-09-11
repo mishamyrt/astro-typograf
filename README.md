@@ -1,5 +1,7 @@
 # Astro Typograf Integration
 
+[![npm version](https://badge.fury.io/js/astro-typograf.svg)](https://badge.fury.io/js/astro-typograf) [![Quality assurance](https://github.com/mishamyrt/astro-typograf/actions/workflows/qa.yaml/badge.svg)](https://github.com/mishamyrt/astro-typograf/actions/workflows/qa.yaml)
+
 A small library that adds typography fixes using the [typograf](https://www.npmjs.com/package/typograf) library to your [Astro](https://www.npmjs.com/package/astro) project.
 
 Versions before **4.0.0** support remark/unified. Starting with **4.0.0**, this integration supports **Sätteri** and no longer supports remark/unified.
