@@ -14,6 +14,10 @@
     "name": "Mikhael Khrustik",
     "url": "https://myrt.co"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mishamyrt/astro-typograf.git"
+  },
   "files": [
     "lib",
     "package.json",
@@ -26,9 +30,10 @@
   "scripts": {
     "fmt": "oxfmt .",
     "fmt:check": "oxfmt --check .",
-    "lint": "oxlint src test",
+    "lint": "oxlint src test scripts",
     "build": "rolldown -c rolldown.config.mjs",
-    "test": "node --test test/integration.test.js && astro --root ./test/ build && cd test && node check.js"
+    "test": "node --test test/*.test.js && astro --root ./test/ build && cd test && node check.js",
+    "release": "node scripts/publish.js"
   },
   "dependencies": {
     "cheerio": "^1.2.0",

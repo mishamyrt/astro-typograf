@@ -1,0 +1,74 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+concurrency:
+  group: release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 26
+          registry-url: https://registry.npmjs.org
+          package-manager-cache: false
+
+      - name: Verify release version
+        run: |
+          node --input-type=module -e '
+            import assert from "node:assert/strict"
+            import manifest from "./package.json" with { type: "json" }
+            assert.equal(process.env.GITHUB_REF_NAME, `v${manifest.version}`)
+          '
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6.1.0
+        with:
+          version: 12
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check, build and test
+        run: |
+          pnpm fmt:check
+          pnpm lint
+          pnpm build
+          pnpm test
+
+      - name: Generate changelog
+        run: |
+          previous_tag=$(git describe --tags --match 'v[0-9]*' --abbrev=0 "${GITHUB_REF_NAME}^" 2>/dev/null || true)
+          range="$GITHUB_REF_NAME"
+          if [ -n "$previous_tag" ]; then
+            range="$previous_tag..$GITHUB_REF_NAME"
+          fi
+          git log --no-merges --format='- %s (%h)' "$range" > "$RUNNER_TEMP/release-notes.md"
+
+      - name: Publish to npm
+        run: npm publish --access public --tag "${{ contains(github.ref_name, '-') && 'next' || 'latest' }}"
+
+      - name: Create GitHub release
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            --verify-tag \
+            --title "$GITHUB_REF_NAME" \
+            --notes-file "$RUNNER_TEMP/release-notes.md" \
+            --prerelease="${{ contains(github.ref_name, '-') }}"
+        env:
+          GH_TOKEN: ${{ github.token }}
